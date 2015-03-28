@@ -1,0 +1,470 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ThaiSQLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Author" Type="nvarchar" MaxLength="128" />
+          <Property Name="FirstStoryID" Type="int" />
+          <Property Name="LastStoryID" Type="int" />
+          <Property Name="RootDirectory" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CourseChapters">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CourseID" Type="int" />
+          <Property Name="ChapterID" Type="int" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="BookID" Type="int" />
+        </EntityType>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Difficulty" Type="int" />
+          <Property Name="Type" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Paragraphs">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Sequence" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+          <Property Name="SentenceID" Type="int" />
+        </EntityType>
+        <EntityType Name="ParagraphSoundUrls">
+          <Key>
+            <PropertyRef Name="ParaID" />
+          </Key>
+          <Property Name="ParaID" Type="int" Nullable="false" />
+          <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ParagraphTranslationEnglish">
+          <Key>
+            <PropertyRef Name="ParagraphID" />
+          </Key>
+          <Property Name="ParagraphID" Type="int" Nullable="false" />
+          <Property Name="Translation" Type="nvarchar(max)" />
+          <Property Name="DialogueSpeaker" Type="nvarchar" MaxLength="127" />
+        </EntityType>
+        <EntityType Name="Sentences">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Sequence" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+          <Property Name="WordID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SentenceTranslationEnglish">
+          <Key>
+            <PropertyRef Name="SentenceID" />
+          </Key>
+          <Property Name="SentenceID" Type="int" Nullable="false" />
+          <Property Name="Translation" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Stories">
+          <Key>
+            <PropertyRef Name="BookID" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Sequence" />
+          </Key>
+          <Property Name="BookID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+          <Property Name="ParagraphID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Timings">
+          <Key>
+            <PropertyRef Name="ParagraphID" />
+            <PropertyRef Name="Timing" />
+          </Key>
+          <Property Name="ParagraphID" Type="int" Nullable="false" />
+          <Property Name="Timing" Type="int" Nullable="false" />
+          <Property Name="Milliseconds" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Words">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Word" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDNecTec" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ThaiSQL.dbo.Words2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Words2">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="Word" />
+            <PropertyRef Name="OriginalWord" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Word" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShortTranslation" Type="nvarchar(max)" />
+          <Property Name="EnglishTranslation" Type="nvarchar(max)" />
+          <Property Name="L2Translation" Type="nvarchar(max)" />
+          <Property Name="Examples" Type="nvarchar(max)" />
+          <Property Name="MP3File" Type="nvarchar" MaxLength="30" />
+          <Property Name="OriginalWord" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ThaiSQL.dbo.ViewWords' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewWords">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Word" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Word" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDNecTec" Type="int" />
+          <Property Name="PBT" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityContainer Name="ThaiSQLModelStoreContainer">
+          <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseChapters" EntityType="Self.CourseChapters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paragraphs" EntityType="Self.Paragraphs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParagraphSoundUrls" EntityType="Self.ParagraphSoundUrls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParagraphTranslationEnglish" EntityType="Self.ParagraphTranslationEnglish" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sentences" EntityType="Self.Sentences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SentenceTranslationEnglish" EntityType="Self.SentenceTranslationEnglish" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stories" EntityType="Self.Stories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Timings" EntityType="Self.Timings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Words" EntityType="Self.Words" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Words2" EntityType="Self.Words2" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Words2].[id] AS [id], 
+    [Words2].[Word] AS [Word], 
+    [Words2].[ShortTranslation] AS [ShortTranslation], 
+    [Words2].[EnglishTranslation] AS [EnglishTranslation], 
+    [Words2].[L2Translation] AS [L2Translation], 
+    [Words2].[Examples] AS [Examples], 
+    [Words2].[MP3File] AS [MP3File], 
+    [Words2].[OriginalWord] AS [OriginalWord]
+    FROM [dbo].[Words2] AS [Words2]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewWords" EntityType="Self.ViewWords" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewWords].[ID] AS [ID], 
+    [ViewWords].[Word] AS [Word], 
+    [ViewWords].[IDNecTec] AS [IDNecTec], 
+    [ViewWords].[PBT] AS [PBT]
+    FROM [dbo].[ViewWords] AS [ViewWords]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ThaiSQLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Words2">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="Word" />
+            <PropertyRef Name="OriginalWord" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Word" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShortTranslation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EnglishTranslation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="L2Translation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Examples" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MP3File" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="OriginalWord" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ThaiSQLEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Words2" EntityType="Self.Words2" />
+          <EntitySet Name="Sentences" EntityType="ThaiSQLModel.Sentence" />
+          <EntitySet Name="Words" EntityType="ThaiSQLModel.Word" />
+          <EntitySet Name="Paragraphs" EntityType="ThaiSQLModel.Paragraph" />
+          <EntitySet Name="Stories" EntityType="ThaiSQLModel.Story" />
+          <EntitySet Name="Books" EntityType="ThaiSQLModel.Book" />
+          <EntitySet Name="CourseChapters" EntityType="ThaiSQLModel.CourseChapter" />
+          <EntitySet Name="ViewWords" EntityType="ThaiSQLModel.ViewWord" />
+          <EntitySet Name="Courses" EntityType="ThaiSQLModel.Course" />
+          <EntitySet Name="ParagraphTranslationEnglishes" EntityType="ThaiSQLModel.ParagraphTranslationEnglish" />
+          <EntitySet Name="ParagraphSoundUrls" EntityType="ThaiSQLModel.ParagraphSoundUrl" />
+          <EntitySet Name="Timings" EntityType="ThaiSQLModel.Timing" />
+          <EntitySet Name="SentenceTranslationEnglishes" EntityType="ThaiSQLModel.SentenceTranslationEnglish" />
+        </EntityContainer>
+        <EntityType Name="Sentence">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Sequence" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <Property Name="WordID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Word">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Word1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDNecTec" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Paragraph">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Sequence" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <Property Name="SentenceID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Story">
+          <Key>
+            <PropertyRef Name="BookID" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Sequence" />
+          </Key>
+          <Property Name="BookID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <Property Name="ParagraphID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FirstStoryID" Type="Int32" />
+          <Property Name="LastStoryID" Type="Int32" />
+          <Property Name="RootDirectory" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CourseChapter">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CourseID" Type="Int32" />
+          <Property Name="ChapterID" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BookID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ViewWord">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Word" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Word" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDNecTec" Type="Int32" />
+          <Property Name="PBT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Difficulty" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ParagraphTranslationEnglish">
+          <Key>
+            <PropertyRef Name="ParagraphID" />
+          </Key>
+          <Property Name="ParagraphID" Type="Int32" Nullable="false" />
+          <Property Name="Translation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DialogueSpeaker" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ParagraphSoundUrl">
+          <Key>
+            <PropertyRef Name="ParaID" />
+          </Key>
+          <Property Name="ParaID" Type="Int32" Nullable="false" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Timing">
+          <Key>
+            <PropertyRef Name="ParagraphID" />
+            <PropertyRef Name="Timing1" />
+          </Key>
+          <Property Name="ParagraphID" Type="Int32" Nullable="false" />
+          <Property Name="Timing1" Type="Int32" Nullable="false" />
+          <Property Name="Milliseconds" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SentenceTranslationEnglish">
+          <Key>
+            <PropertyRef Name="SentenceID" />
+          </Key>
+          <Property Name="SentenceID" Type="Int32" Nullable="false" />
+          <Property Name="Translation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ThaiSQLModelStoreContainer" CdmEntityContainer="ThaiSQLEntities">
+          <EntitySetMapping Name="Words2">
+            <EntityTypeMapping TypeName="ThaiSQLModel.Words2">
+              <MappingFragment StoreEntitySet="Words2">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Word" ColumnName="Word" />
+                <ScalarProperty Name="ShortTranslation" ColumnName="ShortTranslation" />
+                <ScalarProperty Name="EnglishTranslation" ColumnName="EnglishTranslation" />
+                <ScalarProperty Name="L2Translation" ColumnName="L2Translation" />
+                <ScalarProperty Name="Examples" ColumnName="Examples" />
+                <ScalarProperty Name="MP3File" ColumnName="MP3File" />
+                <ScalarProperty Name="OriginalWord" ColumnName="OriginalWord" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sentences">
+            <EntityTypeMapping TypeName="ThaiSQLModel.Sentence">
+              <MappingFragment StoreEntitySet="Sentences">
+                <ScalarProperty Name="WordID" ColumnName="WordID" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Words">
+            <EntityTypeMapping TypeName="ThaiSQLModel.Word">
+              <MappingFragment StoreEntitySet="Words">
+                <ScalarProperty Name="IDNecTec" ColumnName="IDNecTec" />
+                <ScalarProperty Name="Word1" ColumnName="Word" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Paragraphs">
+            <EntityTypeMapping TypeName="ThaiSQLModel.Paragraph">
+              <MappingFragment StoreEntitySet="Paragraphs">
+                <ScalarProperty Name="SentenceID" ColumnName="SentenceID" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stories">
+            <EntityTypeMapping TypeName="ThaiSQLModel.Story">
+              <MappingFragment StoreEntitySet="Stories">
+                <ScalarProperty Name="ParagraphID" ColumnName="ParagraphID" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="ThaiSQLModel.Book">
+              <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="RootDirectory" ColumnName="RootDirectory" />
+                <ScalarProperty Name="LastStoryID" ColumnName="LastStoryID" />
+                <ScalarProperty Name="FirstStoryID" ColumnName="FirstStoryID" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseChapters">
+            <EntityTypeMapping TypeName="ThaiSQLModel.CourseChapter">
+              <MappingFragment StoreEntitySet="CourseChapters">
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ChapterID" ColumnName="ChapterID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewWords">
+            <EntityTypeMapping TypeName="ThaiSQLModel.ViewWord">
+              <MappingFragment StoreEntitySet="ViewWords">
+                <ScalarProperty Name="PBT" ColumnName="PBT" />
+                <ScalarProperty Name="IDNecTec" ColumnName="IDNecTec" />
+                <ScalarProperty Name="Word" ColumnName="Word" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="ThaiSQLModel.Course">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Difficulty" ColumnName="Difficulty" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParagraphTranslationEnglishes">
+            <EntityTypeMapping TypeName="ThaiSQLModel.ParagraphTranslationEnglish">
+              <MappingFragment StoreEntitySet="ParagraphTranslationEnglish">
+                <ScalarProperty Name="DialogueSpeaker" ColumnName="DialogueSpeaker" />
+                <ScalarProperty Name="Translation" ColumnName="Translation" />
+                <ScalarProperty Name="ParagraphID" ColumnName="ParagraphID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParagraphSoundUrls">
+            <EntityTypeMapping TypeName="ThaiSQLModel.ParagraphSoundUrl">
+              <MappingFragment StoreEntitySet="ParagraphSoundUrls">
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="ParaID" ColumnName="ParaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Timings">
+            <EntityTypeMapping TypeName="ThaiSQLModel.Timing">
+              <MappingFragment StoreEntitySet="Timings">
+                <ScalarProperty Name="Milliseconds" ColumnName="Milliseconds" />
+                <ScalarProperty Name="Timing1" ColumnName="Timing" />
+                <ScalarProperty Name="ParagraphID" ColumnName="ParagraphID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SentenceTranslationEnglishes">
+            <EntityTypeMapping TypeName="ThaiSQLModel.SentenceTranslationEnglish">
+              <MappingFragment StoreEntitySet="SentenceTranslationEnglish">
+                <ScalarProperty Name="Translation" ColumnName="Translation" />
+                <ScalarProperty Name="SentenceID" ColumnName="SentenceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

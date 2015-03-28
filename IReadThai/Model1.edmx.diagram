@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="daa3ff9dfb2b4f2fa28a545bc238f6b5" Name="Diagram1">
+        <EntityTypeShape EntityType="ThaiSQLModel.Words2" Width="1.5" PointX="2.125" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ThaiSQLModel.Sentence" Width="1.5" PointX="4.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ThaiSQLModel.Word" Width="1.5" PointX="4.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ThaiSQLModel.Paragraph" Width="1.5" PointX="6.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ThaiSQLModel.Story" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="ThaiSQLModel.Book" Width="1.5" PointX="6.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ThaiSQLModel.CourseChapter" Width="1.5" PointX="3.375" PointY="6.75" />
+        <EntityTypeShape EntityType="ThaiSQLModel.ViewWord" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="ThaiSQLModel.Course" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="ThaiSQLModel.ParagraphTranslationEnglish" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ThaiSQLModel.ParagraphSoundUrl" Width="1.5" PointX="8.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ThaiSQLModel.Timing" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ThaiSQLModel.SentenceTranslationEnglish" Width="1.5" PointX="3.375" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
