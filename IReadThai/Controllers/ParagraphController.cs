@@ -21,13 +21,9 @@ namespace IReadThai.Controllers
         }
 
         // GET: api/Paragraphs/5
-        public TotalParagraph Get(int id)
+        public ThaiModels.ParaInfo Get(int id)
         {
-            TotalParagraph tp = new TotalParagraph();
-            tp.soundURL = thaiModels.paragraphSoundUrl(id);
-            //tp.sentences = thaiModels.sentence;
-            tp.translation = thaiModels.paragraphTranslation(id);
-            return tp;
+           return thaiModels.getParagraphInfo(id);
         }
 
         // POST: api/Paragraphs
