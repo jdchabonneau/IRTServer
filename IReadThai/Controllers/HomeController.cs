@@ -16,7 +16,7 @@ namespace IReadThai.Controllers
             //int size = thaiModels.dicSize();
           // string p = thaiModels. buildStory(bookID, storyID);
             var p = thaiModels.getParagraphInfo(2280);
-            string t = thaiModels.test(p.sentnceInfos) + "<br>";
+            string t = thaiModels.test(p.sentnceInfos);
             t += p.translation + "<br>";
             t += p.soundUrl;
 //            ViewBag.Text = p.ToString() + ": " + DateTime.Now.ToString();// p;
