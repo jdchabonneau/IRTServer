@@ -144,7 +144,7 @@ namespace IReadThai.Models
             paraInfo.soundUrl = paragraphSoundUrl(paragraphID);
             paraInfo.translation = paragraphTranslation(paragraphID);
             paraInfo.timings = paragraphTimings(paragraphID);
-            paraInfo.sentnceInfos = paragraphSentenceInfo(paragraphID);
+            paraInfo.sentenceInfos = paragraphSentenceInfo(paragraphID);
             return paraInfo;
         }
 
@@ -161,6 +161,11 @@ namespace IReadThai.Models
             return sb.ToString();
         }
 
+        public int[] getStoryParagraphIDs(int bookID, int storyID)
+        {
+            return ctx.Stories.Where(s => s.BookID == bookID && s.ID == storyID).OrderBy(s => s.Sequence).Select(s => s.ParagraphID).ToArray();
+        }
+
         public class SentenceInfo
         {
             public int[] wordIDs;
@@ -168,7 +173,7 @@ namespace IReadThai.Models
         }
         public class ParaInfo
         {
-            public SentenceInfo[] sentnceInfos;
+            public SentenceInfo[] sentenceInfos;
             public string translation;
             public string soundUrl;
             public int[] timings;
