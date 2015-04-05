@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Http;
 
 namespace IReadThai.Models
 {
@@ -141,6 +142,7 @@ namespace IReadThai.Models
         public ParaInfo getParagraphInfo(int paragraphID)
         {
             ParaInfo paraInfo = new ParaInfo();
+            paraInfo.paraID = paragraphID;
             paraInfo.soundUrl = paragraphSoundUrl(paragraphID);
             paraInfo.translation = paragraphTranslation(paragraphID);
             paraInfo.timings = paragraphTimings(paragraphID);
@@ -161,9 +163,32 @@ namespace IReadThai.Models
             return sb.ToString();
         }
 
+        public StoryData getStoryData(int bookID, int storyID)
+        {
+            StoryData storyData = new StoryData();
+            storyData.bookID = bookID;
+            storyData.storyID = storyID;
+            storyData.bookTitle = ctx.Books.Single(b => b.ID == bookID).Title;
+            storyData.storyTitle = ctx.CourseChapters.Single(c => c.BookID == bookID && c.ChapterID == storyID).Title;
+            foreach (var paraID in getStoryParagraphIDs(bookID, storyID))
+            {
+                storyData.paraInfos.Add(getParagraphInfo(paraID));
+            }
+            return storyData;
+        }
+
         public int[] getStoryParagraphIDs(int bookID, int storyID)
         {
             return ctx.Stories.Where(s => s.BookID == bookID && s.ID == storyID).OrderBy(s => s.Sequence).Select(s => s.ParagraphID).ToArray();
+        }
+
+        public class StoryData
+        {
+            public int bookID;
+            public int storyID;
+            public string bookTitle;
+            public string storyTitle;
+            public List<ParaInfo> paraInfos = new List<ParaInfo>();
         }
 
         public class SentenceInfo
@@ -173,6 +198,7 @@ namespace IReadThai.Models
         }
         public class ParaInfo
         {
+            public int paraID;
             public SentenceInfo[] sentenceInfos;
             public string translation;
             public string soundUrl;
