@@ -15,9 +15,9 @@ namespace IReadThai.Controllers
     {
         ThaiModels thaiModels = new ThaiModels();
         // GET: api/Paragraphs
-        public string Get()
+        public ThaiModels.ParaInfo Get()
         {
-            return"xxx";
+            return null;
         }
 
         // GET: api/Paragraphs/5
@@ -26,28 +26,66 @@ namespace IReadThai.Controllers
            return thaiModels.getParagraphInfo(id);
         }
 
-        public int[] GetStoryParagraphIDs(string id)
+        //[HttpGet]
+        //[Route("GetParaSoundUrl")]
+        //public string GetParaSoundUrl(int paraID)
+        //{
+        //    return thaiModels.paragraphSoundUrl(paraID);
+        //}
+             [HttpGet]
+        public string Say()
         {
-            string[] tokens = id.Split(',');
-            int bookID = int.Parse(tokens[0]);
-            int storyID = int.Parse(tokens[1]);
-            return thaiModels.getStoryParagraphIDs(bookID, storyID);
+            return "Hello";
         }
 
-        // POST: api/Paragraphs
-        public void Post([FromBody]string value)
-        {
-        }
+             [HttpGet]
+             public string Say(int id)
+             {
+                 return "Hello: " + id;
+             }
 
-        // PUT: api/Paragraphs/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+             [HttpGet]
+             public string Say(int a, int b)
+             {
+                 return "Hello: " + a*b;
+             }
 
-        // DELETE: api/Paragraphs/5
-        public void Delete(int id)
-        {
-        }
+        //http://localhost:7696/api/paragraphs/GSU
+        //[Route("GSU")]
+        //public string GSU()
+        //{
+        //    return "gsu";
+        //}
+
+        //[Route("GSU")]
+        //public string GSU(int? id)
+        //{
+        //    return "gsu: " + id;
+        //}
+
+        //[Route("GetStoryParagraphIDs")]
+        //public int[] GetStoryParagraphIDs(string id)
+        //{
+        //    string[] tokens = id.Split(',');
+        //    int bookID = int.Parse(tokens[0]);
+        //    int storyID = int.Parse(tokens[1]);
+        //    return thaiModels.getStoryParagraphIDs(bookID, storyID);
+        //}
+
+        //// POST: api/Paragraphs
+        //public void Post([FromBody]string value)
+        //{
+        //}
+
+        //// PUT: api/Paragraphs/5
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
+
+        //// DELETE: api/Paragraphs/5
+        //public void Delete(int id)
+        //{
+        //}
     }
 
     public class TotalParagraph

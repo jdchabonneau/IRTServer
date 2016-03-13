@@ -15,13 +15,14 @@ namespace IReadThai.Controllers
             ViewBag.Title = "Home Page: ";
             //int size = thaiModels.dicSize();
           // string p = thaiModels. buildStory(bookID, storyID);
-            var p = thaiModels.getParagraphInfo(2280);
+            var p = thaiModels.getParagraphInfo(2281);
+
             string t = thaiModels.test(p.sentenceInfos);
-            t += p.translation + "<br>";
-            t += p.soundUrl;
+            t += "Translation: " + p.translation + " <br>";
+            t += "SoundUrl: " +  p.soundUrl + " <br>";
 //            ViewBag.Text = p.ToString() + ": " + DateTime.Now.ToString();// p;
             ViewBag.Text = t;// p;
-            return View();
+            return View(p);
         }
 
         public ActionResult Books()

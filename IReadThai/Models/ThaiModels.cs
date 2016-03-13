@@ -92,7 +92,7 @@ namespace IReadThai.Models
 
         public string paragraphSoundUrl(int paragraphID)
         {
-            ////http://citiesarecool.com/data/Book%20Jack1/waan.txt/waan_1_10_1.mp3
+            //return "http://citiesarecool.com/data/Book%20Jack1/waan.txt/waan_1_10_1.mp3";
             //string server = "http://citiesarecool.com/data";
             //string speaker = "waan";
             //int bookID, chapterIndex, paragraphIndex;
@@ -143,10 +143,12 @@ namespace IReadThai.Models
         {
             ParaInfo paraInfo = new ParaInfo();
             paraInfo.paraID = paragraphID;
-            paraInfo.soundUrl = paragraphSoundUrl(paragraphID);
             paraInfo.translation = paragraphTranslation(paragraphID);
+            paraInfo.soundUrl = paragraphSoundUrl(paragraphID);
+            var jdc3 = paragraphSoundUrl(paragraphID);
             paraInfo.timings = paragraphTimings(paragraphID);
             paraInfo.sentenceInfos = paragraphSentenceInfo(paragraphID);
+            paraInfo.paraID = jdc3.Length + 1;
             return paraInfo;
         }
 
@@ -159,7 +161,7 @@ namespace IReadThai.Models
                 foreach(int wordID in sentence.wordIDs)
                 sb.Append(words.First(w=>w.ID==wordID).Word);
             }
-            sb.Append("   ");
+            sb.Append("   <br>");
             return sb.ToString();
         }
 
@@ -168,8 +170,8 @@ namespace IReadThai.Models
             StoryData storyData = new StoryData();
             storyData.bookID = bookID;
             storyData.storyID = storyID;
-            storyData.bookTitle = ctx.Books.Single(b => b.ID == bookID).Title;
             storyData.storyTitle = ctx.CourseChapters.Single(c => c.BookID == bookID && c.ChapterID == storyID).Title;
+            storyData.bookTitle = ctx.Books.Single(b => b.ID == bookID).Title;
             foreach (var paraID in getStoryParagraphIDs(bookID, storyID))
             {
                 storyData.paraInfos.Add(getParagraphInfo(paraID));
@@ -234,10 +236,10 @@ namespace IReadThai.Models
                     {
                         //console_WriteLine("New paraID: " + story.ParagraphID);
                         string url = string.Format("{0}/{1}{2}_{3}_{4}_{5}.mp3", server, book.RootDirectory.Replace('\\','/'), speaker, book.ID, storyID, story.Sequence+1);
-                        ParagraphSoundUrl psu = new ParagraphSoundUrl();
-                        psu.ParaID = story.ParagraphID;
-                        psu.Url = url;
-                        ctx.ParagraphSoundUrls.Add(psu);
+                        ParagraphSoundUrl paragraphSoundUrl = new ParagraphSoundUrl();
+                        paragraphSoundUrl.ParaID = story.ParagraphID;
+                        paragraphSoundUrl.Url = url;
+                        ctx.ParagraphSoundUrls.Add(paragraphSoundUrl);
 //                        l.Add(story.ParagraphID, url);
                         if (h.Contains(story.ParagraphID))
                         {

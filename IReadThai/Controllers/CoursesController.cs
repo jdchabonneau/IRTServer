@@ -31,6 +31,18 @@ namespace IReadThai.Controllers
             return thaiModels.getStoryData(bookID, storyID);
         }
 
+        [HttpGet]
+        public int mult(int a, int b)
+        {
+            return a * b;
+        }
+
+        [HttpGet]
+        public int add2(int a, int b)
+        {
+            return a + b;
+        }
+
         // POST: api/Courses
         public void Post([FromBody]string value)
         {
