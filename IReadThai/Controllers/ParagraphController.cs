@@ -22,7 +22,7 @@ namespace IReadThai.Controllers
 
         // GET: api/Paragraphs/5
         public ThaiModels.ParaInfo Get(int id)
-        {
+        {//
            return thaiModels.getParagraphInfo(id);
         }
 
